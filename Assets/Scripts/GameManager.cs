@@ -5,5 +5,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public UIManager uimanager;
+    public InputManager Input_manager;
+
+
 
 }
