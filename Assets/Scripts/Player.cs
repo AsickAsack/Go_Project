@@ -73,17 +73,19 @@ public class Player : MonoBehaviour
             }
             
         }
-
+        /*
         Ray ray1 = new Ray();
         ray1.origin = this.transform.position;
         ray1.direction = this.transform.forward;
         if (Physics.SphereCast(ray1, 0.5f, out RaycastHit hit1, 0.5f,1<<LayerMask.NameToLayer("Enemy")))
         {
-            Vector3 temp = new Vector3(hit1.point.x, 0, hit1.point.z);
-            hit1.transform.GetComponent<Rigidbody>().AddForce((hit1.transform.position - this.transform.position).normalized * 2.0f, ForceMode.Impulse);
-            //this.GetComponent<Rigidbody>().AddForce(.* 3.0f, ForceMode.Impulse);
+            //Vector3 temp = new Vector3(hit1.point.x, 0, hit1.point.z);
+            Vector3 temp = (hit1.transform.position - this.transform.position).normalized;
+            hit1.transform.GetComponent<Rigidbody>().AddForce(temp * 0.1f ,ForceMode.Impulse);
+            this.GetComponent<Rigidbody>().AddForce(new Vector3(temp.z,0.0f,-temp.x)* 0.025f,ForceMode.Impulse);
             Debug.Log("맞음");
         }
+        */
     }
 
     private void OnDrawGizmos()
@@ -113,11 +115,18 @@ public class Player : MonoBehaviour
     {
         if(collision.transform.CompareTag("Enemy"))
         {
-            
 
-            
-            
-            
+
+            Debug.Log("맞음");
+                Vector3 temp = (collision.transform.position - this.transform.position).normalized;
+            collision.transform.GetComponent<Rigidbody>().AddForce(temp * 2f, ForceMode.Impulse);
+                this.GetComponent<Rigidbody>().AddForce((-Vector3.Reflect(TargetPos,collision.transform.up)) * 5.0f, ForceMode.Impulse);
+            //new Vector3(temp.z, 0.0f, -temp.x)
+
+
+
+
+
         }
     }
 
